@@ -4,6 +4,12 @@ import NotFound from './pages/NotFound';
 
 import './index.css'
 import Test from './pages/Test';
+import { AppConfigProvider } from './context/SheetContext';
+import { mashupConfigData, sheetData, sheetsResponseData } from './types';
+
+type Props = {
+  appConfigData: mashupConfigData;
+}
 
 export function App() {
   return (
@@ -15,10 +21,12 @@ export function App() {
   );
 }
 
-export function WrappedApp() {
+export function WrappedApp({appConfigData}: Props) {
   return (
     <HashRouter>
-      <App />
+      <AppConfigProvider appConfigData={appConfigData}>
+        <App />
+      </AppConfigProvider>
     </HashRouter>
   );
 }
