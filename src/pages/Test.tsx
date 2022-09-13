@@ -9,7 +9,7 @@ function Test() {
         component={QdtViz}
         properties={{}}
         options={{
-          id: 'ZGskMH',
+          id: 'SNPNH',
           height: `600px`,
         }}
         appIndex={2}

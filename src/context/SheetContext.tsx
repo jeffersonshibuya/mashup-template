@@ -10,6 +10,8 @@ type Props = {
 
 const appContextDefaultValues: appContextType = {
   sheets: [],
+  GetCapabilitiesPromise: () => {},
+  GetEnginePromise: () => {},
 };
 
 export const AppConfigContext = createContext<appContextType>(
@@ -20,19 +22,9 @@ export function useAppConfig() {
   return useContext(AppConfigContext);
 }
 
-export function QdtConfig(config: QdtConfigType) {
-  const capabilityApiAppPromise = qdtCapabilityApp(config);
-  const engineApiAppPromise = qdtEnigma(config);
-
-  return {capabilityApiAppPromise, engineApiAppPromise}
-}
-
 export function AppConfigProvider({children, appConfigData}: Props) {
   const [sheets, setSheets] = useState<sheetData[]>([]);
-  const [config, setConfig] = useState<QdtConfigType>();
-  
-
-
+ 
   const identity = Math.random().toString(32);
 
   const connectionConfig: QdtConfigType = {
@@ -40,16 +32,21 @@ export function AppConfigProvider({children, appConfigData}: Props) {
     secure: true,
     port: 443,
     prefix: "",
-    appId: "4575c49b-e07c-4224-8391-0bb4a879e238",
+    appId: appConfigData.appId,
     identity
   }
 
-  const {capabilityApiAppPromise, engineApiAppPromise} = QdtConfig(connectionConfig)
+  function GetCapabilitiesPromise() {
+    return qdtCapabilityApp(connectionConfig);
+  }
+
+  function GetEnginePromise() {
+    return qdtEnigma(connectionConfig);
+  }
 
   useEffect(() => {
     async function init() {
 
-      setConfig(connectionConfig)      
       const app = await qdtEnigma(connectionConfig);
 
       const sheetsList: sheetData[] = [];
@@ -75,14 +72,12 @@ export function AppConfigProvider({children, appConfigData}: Props) {
   }, [])
 
   const value = {
-    sheets: sheets
+    sheets: sheets,
+    GetCapabilitiesPromise,
+    GetEnginePromise
   };
 
   return (
     <AppConfigContext.Provider value={value}>{children}</AppConfigContext.Provider>
   );
 }
-
-
-
-// export const SheetContext = React.createContext<sheetData[]>([]);

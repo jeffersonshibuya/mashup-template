@@ -3,11 +3,14 @@
 export type mashupConfigData = {
   host: string;
   name: string;
+  appId: string;
   sheets: sheetsResponseData[]
 }
 
 export type appContextType = {
   sheets: sheetData[];
+  GetCapabilitiesPromise: any,
+  GetEnginePromise: any,
 };
 
 export type sheetsResponseData = {
@@ -32,9 +35,9 @@ export type sheetData = {
   columns: number;
   rows: number;
   // menuIcon?: IconType | undefined;
-  iconColor?: string;
-  bgImageUrl?: string;
-  bgImagePosition?: string;
+  // iconColor?: string;
+  // bgImageUrl?: string;
+  // bgImagePosition?: string;
   // menuIndex: number;
 };
 
