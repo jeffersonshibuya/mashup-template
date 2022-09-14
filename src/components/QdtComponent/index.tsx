@@ -2,35 +2,25 @@ import { useEffect, useRef } from 'react';
 import {
   qdtCapabilityApp, qdtCompose, qdtEnigma, QdtViz
 } from 'qdt-components';
-import { useAppConfig } from '../../context/SheetContext';
+import { QdtConfigConnection, QdtConfigData } from '../../util/QdtConfig';
 
-// const identity = Math.random().toString(32);
+await QdtConfigConnection();
+const config = QdtConfigData;
 
-// export const config = {
-//   host: "qap.ipc-global.com",
-//   secure: true,
-//   port: 443,
-//   prefix: "",
-//   appId: "4575c49b-e07c-4224-8391-0bb4a879e238",
-//   identity
-// }
-
-// const capabilityApiAppPromise = qdtCapabilityApp(config);
-// const engineApiAppPromise = qdtEnigma(config);
-
+const capabilityApiAppPromise = qdtCapabilityApp(config);
+const engineApiAppPromise = qdtEnigma(config);
 
 function QdtComponent({
   component, properties, options, appIndex,
 }: any) {
   const elementRef = useRef(null);
-  const {GetCapabilitiesPromise, GetEnginePromise} = useAppConfig();
 
   const init = async () => {
-    
-    let app = await GetEnginePromise();
+
+    let app = await engineApiAppPromise;
 
     if (appIndex === 2) {
-      app = await GetCapabilitiesPromise();
+      app = await capabilityApiAppPromise;
       QdtViz({
         element: elementRef.current,       
         app,
@@ -55,7 +45,6 @@ function QdtComponent({
 
   return (
     <>
-      {elementRef.current === null && <div>LOADING...</div>}
       <div ref={elementRef} />
     </>
   );

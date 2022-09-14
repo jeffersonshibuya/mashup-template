@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom/client';
 import { WrappedApp } from './App';
 import { api } from './services/api';
 import { mashupConfigData, sheetData, sheetsResponseData } from './types';
+import { GetMashupConfig, QdtConfigConnection } from './util/QdtConfig';
 
 function loadPage(appConfigData: mashupConfigData): void {
 
@@ -14,36 +15,7 @@ function loadPage(appConfigData: mashupConfigData): void {
 }
 
 (async function getApp() {
-  const sheets: sheetData[] = [];
-  
-  const configApp = await api.post<mashupConfigData>('', { name: 'nfl'}, {
-    headers: {
-      "Content-Type": "application/json",
-    },
-  })
+  const configApp = GetMashupConfig();
 
-
-
-    // if (qDoc) {
-
-    //   for(const sheet of sheetsList) {
-    //     const iconName: string = sheet.iconName || 'FiLink';
-
-    //     const obj = await qDoc.getObject(sheet.sheetid);
-    //     const layout = await obj.getLayout();
-
-    //     sheets.push({
-    //       id: String(sheet.sheetid),
-    //       title: sheet.tabName ? sheet.tabName : layout.qMeta.title,
-    //       cells: layout.cells,
-    //       columns: layout.columns,
-    //       rows: layout.rows,
-    //       bgImageUrl: sheet.bgImageUrl || '',
-    //       bgImagePosition: sheet.bgImageUrlPosition || 'center',
-    //       menuIcon: (FeatherIcons as any)[iconName],
-    //       iconColor: sheet.iconColor
-    //     })
-    //   }
-    // }
-    loadPage(configApp.data);
+  if(configApp) loadPage(configApp);
 })();
