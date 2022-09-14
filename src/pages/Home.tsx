@@ -9,11 +9,11 @@ function Home() {
   return (
     <>
       <h1 className="text-3xl font-bold underline">Hello World</h1>
-      <ul>
+      {/* <ul>
         {sheets.map(sheet => <li key={sheet.id}>{JSON.stringify(sheet)}</li>)}
-      </ul>
+      </ul> */}
 
-      <QdtComponent
+      {/* <QdtComponent
         component={QdtViz}
         properties={{}}
         options={{
@@ -21,7 +21,7 @@ function Home() {
           height: `600px`,
         }}
         appIndex={2}
-      />
+      /> */}
     </>
   )
 }

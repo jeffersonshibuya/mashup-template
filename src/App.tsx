@@ -6,6 +6,8 @@ import './index.css'
 import Test from './pages/Test';
 import { AppConfigProvider } from './context/SheetContext';
 import { mashupConfigData, sheetData, sheetsResponseData } from './types';
+import Navbar from './components/Navbar';
+import InformedHeader from './components/InformedHeader';
 
 type Props = {
   appConfigData: mashupConfigData;
@@ -13,11 +15,17 @@ type Props = {
 
 export function App() {
   return (
-    <Routes>
-      <Route path="/" element={<Home />} />
-      <Route path="/test" element={<Test />} />
-      <Route path="*" element={<NotFound />} />
-    </Routes>
+    <>
+      <InformedHeader />
+      <Navbar />
+      <div className="container pt-4">
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/test" element={<Test />} />
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </div>
+    </>
   );
 }
 
