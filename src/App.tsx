@@ -9,6 +9,7 @@ import { mashupConfigData, sheetData, sheetsResponseData } from './types';
 import Navbar from './components/Navbar';
 import InformedHeader from './components/InformedHeader';
 import Sheet from './pages/Sheet';
+import { Footer } from './components/Footer';
 
 type Props = {
   appConfigData: mashupConfigData;
@@ -19,16 +20,15 @@ export function App() {
     <>
       <InformedHeader />
       <Navbar />
-      <div className="">
-        <div className="container pt-4 ">
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/test" element={<Test />} />
-            <Route path="/:sheetId" element={<Sheet />} />
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-        </div>
+      <div className="container pt-4 ">
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/test" element={<Test />} />
+          <Route path="/:sheetId" element={<Sheet />} />
+          <Route path="*" element={<NotFound />} />
+        </Routes>
       </div>
+      <Footer />
     </>
   );
 }
