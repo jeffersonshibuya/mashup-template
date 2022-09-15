@@ -3,7 +3,9 @@
 @tailwind utilities;
 
 .active {
-  @apply border-b-2 border-green-800
+  @apply border-b-2  
+    border-green-800 
+    text-gray-900 dark:border-gray-300 dark:text-white
 }
 
 .qv-object-content-container > div > div > button {

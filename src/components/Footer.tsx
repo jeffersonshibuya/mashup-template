@@ -1,23 +1,30 @@
+import React, { useContext } from 'react';
 import { Buildings, FacebookLogo, LinkedinLogo, MapPin, Phone, TwitterLogo, YoutubeLogo } from 'phosphor-react'
 import logo from '../assets/logo_rbg.png';
 import ipcIcon from '../assets/ipcglobe.png'
+import logo_white from '../assets/logo_white.png'
+import ThemeContext from '../context/ThemeContext';
 
 export function Footer() {
+  const { currentTheme } = useContext(ThemeContext)
+
    return (
-    <footer id="footer" className="bg-gradient-to-t from-gray-300 to-white border-t border-green-800 
+    <footer id="footer" className="dark:bg-gradient-to-t 
+    dark:from-gray-900  dark:to-gray-900 
+      bg-gradient-to-t from-gray-300 to-white border-t border-green-800 
       text-gray-700 py-3"
     >
       <div className="container px-2">
         <div className="grid lg:grid-cols-3 gap-2">
           <div>
               <div className="py-3 mb-6">
-                <img src={logo} alt="informed by data logo" 
+                <img src={currentTheme === 'light'? logo : logo_white} alt="informed by data logo" 
                   className="w-[100px] sm:w-[160px] h-auto hover:cursor-pointer"
                   onClick={() => window.location.replace('https://www.ipc-global.com/')}
                 />
               </div>
               <div className='leading-relaxed text-gray-500'>
-                <p className="text-3xl font-bold ">Let's keep in touch!</p>
+                <p className="text-3xl font-bold dark:text-white">Let's keep in touch!</p>
                 <span className="">Find us on any of these platforms.</span>
               </div>
               <ul className="flex py-4">
@@ -103,7 +110,7 @@ export function Footer() {
             text-green-700">
               What We Do
             </h3>
-            <ul className="leading-loose">
+            <ul className="leading-loose dark:text-gray-300">
               <li>Qlik Data Analytics Platform</li>
               <li>Qlik Data Integration Platform</li>
               <li>Amazon Web Services (AWS)</li>
@@ -115,7 +122,7 @@ export function Footer() {
             text-green-700">
               Contact Us
             </h3>
-            <ul>
+            <ul className="dark:text-gray-300">
               <li className="flex align-center gap-2 py-2"> 
                 <MapPin size={20} className=""/> 
                 <span> 4080 McGinnis Ferry Road </span>
@@ -131,7 +138,7 @@ export function Footer() {
         </div>
       </div>
       <div className="flex py-2 mt-4 justify-center w-full border-t 
-      border-gray-700">
+      border-gray-700 dark:text-white">
         <p>Copyright © {new Date().getFullYear()} 
         <a href="https://ipc-global.com" target="_blank" rel="noreferrer"> IPC - Global</a></p>
       </div>

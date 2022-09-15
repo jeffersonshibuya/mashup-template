@@ -36,7 +36,7 @@ const Sheet: React.FC = () => {
         <div className="py-4 px-2">
           <div className="">
             <div className="container">
-              <strong className="text-3xl">{sheet?.title}</strong>
+              <strong className="text-3xl dark:text-white">{sheet?.title}</strong>
             </div>
           </div>
           <Content columns={sheet?.columns} rows={sheet?.rows}>
@@ -49,7 +49,7 @@ const Sheet: React.FC = () => {
                   rowEnd={cell.row + (cell.rowspan + 1)}
                   key={cell.name}
                   type={cell.type}
-                  className="border border-gray-300 overflow-hidden" 
+                  className="border border-gray-300 overflow-hidden bg-white" 
                 >
                   <QdtComponent
                     component={QdtViz}
