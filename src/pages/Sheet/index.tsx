@@ -6,10 +6,8 @@ import { useAppConfig } from '../../context/SheetContext';
 import QdtComponent from '../../components/QdtComponent';
 
 import { Content, Chart } from './styles';
-
-interface RouteParams {
-  sheetId: string;
-}
+import { container, fadeIn, item } from '../../util/animation';
+import { motion } from 'framer-motion';
 
 const Sheet: React.FC = () => {
   const [objectSize, setObjectSize] = useState(() => {
@@ -31,8 +29,7 @@ const Sheet: React.FC = () => {
   const sheet = sheets.find(sheetObj => sheetObj.id === sheetId)!;
 
   return (
-    <>
-      <div className="">
+      <motion.div key={sheetId} variants={container} initial="hidden" animate="show">
         <div className="py-4 px-2">
           <div className="">
             <div className="container">
@@ -92,8 +89,7 @@ const Sheet: React.FC = () => {
             })}
           </Content> */}
         </div>
-      </div>
-    </>
+      </motion.div>
   );
 };
 

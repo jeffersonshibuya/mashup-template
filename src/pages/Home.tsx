@@ -1,14 +1,30 @@
+import { motion } from "framer-motion";
 import { QdtViz } from "qdt-components";
 import QdtComponent from "../components/QdtComponent";
 import { useAppConfig } from "../context/SheetContext";
+import { container, item, slideUp } from "../util/animation";
 
 function Home() {
 
   const { sheets } = useAppConfig();
 
   return (
-    <>
-      <h1 className="text-3xl font-bold underline">Hello World</h1>
+    <motion.div variants={container} initial="hidden" animate="show">
+      {/* <div className="h-screen">
+        <motion.ul
+          className="container"
+          variants={container}
+          initial="hidden"
+          animate="visible"
+        >
+          {[0, 1, 2, 3].map((index) => (
+            <motion.li key={index} variants={item}>ITEM</motion.li>
+          ))}
+        </motion.ul>
+      </div> */}
+      <motion.h1 variants={item}  className="text-3xl font-bold underline">Hello World</motion.h1>
+      <motion.h1 variants={item}  className="text-3xl font-bold underline">Hello World</motion.h1>
+      <motion.h1 variants={item}  className="text-3xl font-bold underline">Hello World</motion.h1>
       {/* <ul>
         {sheets.map(sheet => <li key={sheet.id}>{JSON.stringify(sheet)}</li>)}
       </ul> */}
@@ -22,7 +38,7 @@ function Home() {
         }}
         appIndex={2}
       /> */}
-    </>
+    </motion.div>
   )
 }
 

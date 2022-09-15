@@ -3,6 +3,8 @@ import {
   qdtCapabilityApp, qdtCompose, qdtEnigma, QdtViz
 } from 'qdt-components';
 import { QdtConfigConnection, QdtConfigData } from '../../util/QdtConfig';
+import { item } from '../../util/animation';
+import { motion } from 'framer-motion';
 
 await QdtConfigConnection();
 const config = QdtConfigData;
@@ -44,9 +46,7 @@ function QdtComponent({
   
 
   return (
-    <>
-      <div ref={elementRef} />
-    </>
+    <motion.div variants={item} ref={elementRef} />
   );
 }
 

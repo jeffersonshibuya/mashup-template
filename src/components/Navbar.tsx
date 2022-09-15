@@ -15,7 +15,7 @@ function Navbar() {
                 uppercase tracking-widest font-bold 
                 text-xs py-3 mr-8">
                   <span className="flex align-center">
-                    <User size={16} className="mr-2"/>
+                    <User size={16} className="mr-1"/>
                     Home
                   </span>
                 </NavLink>
@@ -27,7 +27,7 @@ function Navbar() {
                   key={sheet.id}
                 >
                   <span className="flex align-center">
-                    <User size={16} className="mr-2"/>
+                    <User size={16} className="mr-1"/>
                     {sheet.title}
                   </span>
                 </NavLink>
