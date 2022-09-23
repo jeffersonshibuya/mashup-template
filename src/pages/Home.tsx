@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { QdtViz } from "qdt-components";
+import { useParams } from "react-router-dom";
 import QdtComponent from "../components/QdtComponent";
 import { useAppConfig } from "../context/SheetContext";
 import { container, item, slideUp } from "../util/animation";
@@ -7,9 +8,12 @@ import { container, item, slideUp } from "../util/animation";
 function Home() {
 
   const { sheets } = useAppConfig();
+  let { appName } = useParams();
+  
 
   return (
     <motion.div variants={container} initial="hidden" animate="show">
+      {appName}
       {/* <div className="h-screen">
         <motion.ul
           className="container"

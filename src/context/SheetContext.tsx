@@ -28,7 +28,7 @@ export function AppConfigProvider({children, appConfigData}: Props) {
   const identity = Math.random().toString(32);
 
   const connectionConfig: QdtConfigType = {
-    host: appConfigData.host,
+    host: appConfigData.server,
     secure: true,
     port: 443,
     prefix: "",

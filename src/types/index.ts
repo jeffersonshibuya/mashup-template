@@ -1,7 +1,7 @@
 // import { IconType } from 'react-icons/lib/esm';
 
 export type mashupConfigData = {
-  host: string;
+  server: string;
   name: string;
   appId: string;
   sheets: sheetsResponseData[]

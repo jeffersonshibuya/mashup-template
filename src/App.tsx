@@ -1,4 +1,4 @@
-import { HashRouter, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, HashRouter, Route, Routes } from 'react-router-dom';
 import Home from './pages/Home';
 import NotFound from './pages/NotFound';
 
@@ -24,9 +24,9 @@ export function App() {
       <div className='dark:bg-gradient-to-b dark:from-gray-700 dark:to-gray-900'>
         <div className="container pt-4">
           <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/test" element={<Test />} />
-            <Route path="/:sheetId" element={<Sheet />} />
+            <Route path={`/:appName`} element={<Home />} />
+            <Route path="/:appName/test" element={<Test />} />
+            <Route path="/:appName/:sheetId" element={<Sheet />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </div>
@@ -38,12 +38,12 @@ export function App() {
 
 export function WrappedApp({appConfigData}: Props) {
   return (
-    <HashRouter>
+    <BrowserRouter>
       <AppConfigProvider appConfigData={appConfigData}>
         <ThemeContextWrapper>
           <App />
         </ThemeContextWrapper>
       </AppConfigProvider>
-    </HashRouter>
+    </BrowserRouter>
   );
 }

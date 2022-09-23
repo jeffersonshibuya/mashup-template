@@ -15,8 +15,10 @@ let QdtConfigData = {
 let configData: mashupConfigData = {} as mashupConfigData; 
 
 async function QdtConfigConnection() {
+  let url = window.location.toString();
+  const appName = url.split('/')[3];
 
-  const configApp = await api.post<mashupConfigData>('', { name: 'nfl'}, {
+  const configApp = await api.post<mashupConfigData>('', { name: appName}, {
     headers: {
       "Content-Type": "application/json",
     },
@@ -24,7 +26,7 @@ async function QdtConfigConnection() {
 
   QdtConfigData = {
     ...QdtConfigData,
-    host: configApp.data.host,
+    host: configApp.data.server,
     appId: configApp.data.appId,
   } 
 
@@ -34,7 +36,7 @@ async function QdtConfigConnection() {
 }
 
 function GetMashupConfig() {
-  if(configData.host !== '' && configData.appId !== '') {
+  if(configData.server !== '' && configData.appId !== '') {
     return configData
   } else {
     QdtConfigConnection();
