@@ -1,4 +1,4 @@
-import { QdtViz } from 'qdt-components';
+import { QdtSelections, QdtViz } from 'qdt-components';
 import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
 

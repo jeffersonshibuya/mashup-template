@@ -1,4 +1,4 @@
-import { Info } from 'phosphor-react';
+import { HouseLine, Info } from 'phosphor-react';
 import { useContext } from 'react';
 import { useParams } from 'react-router-dom';
 import logo from '../assets/logo_rbg.png';
@@ -16,8 +16,8 @@ function InformedHeader() {
       flex-1 flex-column h-[170px] py-2 px-8 md:h-16 
       "
     >
-      <div className="container md:justify-between align-center
-      md:flex justify-center">
+      <div className="container xs:justify-center justify-between align-center
+        md:flex text-center">
         <div className="flex">
           <a
             href="http://www.ipc-global.com/"
@@ -33,15 +33,22 @@ function InformedHeader() {
         <div className="font-bold text-2xl md:text-xl pt-2 uppercase dark:text-white">
           {appName}
         </div>
-        <div className="text-green-600 min-w-fit pt-4 flex text-xs md:text-md">
-          <a
-            href="http://www.ipc-global.com/"
-            className="flex align-center hover:underline w-full justify-center"
-          >
-            <Info size={18} className="mr-2 text-gray-900  dark:text-white" />
+        
+        <div className="text-green-600 flex min-w-fit pt-3 text-xs md:text-md 
+          justify-between">
+          <a href="http://www.ipc-global.com/" className="flex align-center 
+          hover:underline justify-center pt-1 flex-1 gap-2 text-green-800 
+          dark:text-green-600
+          ">
+            <Info size={18} />
             Learn more about inFormed by Data at IPC Global
           </a>
-        </div>
+          <div className="mr-4 ml-2 hidden lg:block">
+            <a href="http://www.ipc-global.com/" className="dark:text-white text-[#002f67]">
+              <HouseLine size={22}  />
+            </a>
+          </div>
+			  </div>
       </div>
     </header>
   );
