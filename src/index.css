@@ -3,9 +3,8 @@
 @tailwind utilities;
 
 .active {
-  @apply border-b-2  
-    border-green-800 
-    text-gray-900 dark:border-gray-300 dark:text-white
+  @apply  text-white dark:text-white bg-green-700 
+  dark:bg-green-800 !important;
 }
 
 body::-webkit-scrollbar {
@@ -28,4 +27,12 @@ body::-webkit-scrollbar-thumb {
 
 .qv-object-content-container > div > div > button > text {
   font-size: 12px !important;
+}
+
+.qdt-selections div {
+  @apply dark:bg-gray-900  bg-gray-200 border-0
+}
+
+.MuiButtonGroup-root > button{
+  @apply dark:text-gray-300 text-gray-800 border border-gray-400;
 }

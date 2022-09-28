@@ -30,12 +30,12 @@ const Sheet: React.FC = () => {
 
   return (
       <motion.div key={sheetId} variants={container} initial="hidden" animate="show">
-        <div className="py-4 px-2">
-          <div className="">
+        <div className="">
+          {/* <div className="">
             <div className="container">
               <strong className="text-3xl dark:text-white">{sheet?.title}</strong>
             </div>
-          </div>
+          </div> */}
           <Content columns={sheet?.columns} rows={sheet?.rows}>
             {sheet?.cells?.map(cell => {
               return (
@@ -46,7 +46,10 @@ const Sheet: React.FC = () => {
                   rowEnd={cell.row + (cell.rowspan + 1)}
                   key={cell.name}
                   type={cell.type}
-                  className="border border-gray-300 overflow-hidden bg-white" 
+                  className={`border border-gray-300 overflow-hidden
+                  ${cell.type === 'action-button' ? 
+                  'bg-white dark:bg-transparent' : 'bg-white'}`
+                  }
                 >
                   <QdtComponent
                     component={QdtViz}

@@ -14,6 +14,7 @@ function Home() {
   return (
     <motion.div variants={container} initial="hidden" animate="show">
       {appName}
+      
       {/* <div className="h-screen">
         <motion.ul
           className="container"

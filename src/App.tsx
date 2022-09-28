@@ -11,6 +11,8 @@ import InformedHeader from './components/InformedHeader';
 import Sheet from './pages/Sheet';
 import { Footer } from './components/Footer';
 import ThemeContextWrapper from './context/ThemeContextWrapper';
+import QdtComponent from './components/QdtComponent';
+import { QdtSelections } from 'qdt-components';
 
 type Props = {
   appConfigData: mashupConfigData;
@@ -22,7 +24,13 @@ export function App() {
       <InformedHeader />
       <Navbar />
       <div className='dark:bg-gradient-to-b dark:from-gray-700 dark:to-gray-900'>
-        <div className="container pt-4">
+        <div className="container pt-3">
+          <QdtComponent
+            component={QdtSelections}
+            properties={{
+              qSelectionObjectDef: {},
+            }}
+          />
           <Routes>
             <Route path={`/:appName`} element={<Home />} />
             <Route path="/:appName/test" element={<Test />} />
