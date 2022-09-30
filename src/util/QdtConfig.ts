@@ -11,8 +11,8 @@ let QdtConfigData = {
   port: 443,
   prefix: "",
   appId: '',
-  // webIntegrationId: 'JqbUeBR8thgedYXpOJOsarV8n_mALCYG',
-  // token: 'asdf'
+  webIntegrationId: '',
+  token: ''
 }
 
 let configData: mashupConfigData = {} as mashupConfigData; 

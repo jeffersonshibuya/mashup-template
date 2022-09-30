@@ -8,9 +8,9 @@ import { motion } from 'framer-motion';
 
 const jwtEndpoint = 'https://dnikbxehetoshbd63t2hcwdjfm0ocsho.lambda-url.us-east-1.on.aws/'
 
-await QdtConfigConnection();
+const configData = await QdtConfigConnection();
 
-const config = {
+let config = {
   ...QdtConfigData,
   // webIntegrationId: 'JqbUeBR8thgedYXpOJOsarV8n_mALCYG',
   // token: fetch(jwtEndpoint, {
@@ -20,6 +20,30 @@ const config = {
   // .then(data => {return data})
   // .catch(error => console.log('---- Errror', error))
 };
+
+if(configData.isCloud) {
+  if(configData.isAnonAccess) {
+    config = {
+      ...QdtConfigData,
+      webIntegrationId: String(configData.webIntegrationId),
+      token: String(fetch(jwtEndpoint, {
+        mode: 'cors',
+        method: 'GET',
+      }).then(response => response.json())
+      .then(data => {return data})
+      .catch(error => console.log('---- Errror', error)))
+    };
+  } else {
+    config = {
+      ...QdtConfigData,
+      webIntegrationId: String(configData.webIntegrationId),
+      token: 'mytoken-invalid token'
+    };
+  }
+}
+
+
+
 
 const capabilityApiAppPromise = qdtCapabilityApp(config);
 const engineApiAppPromise = qdtEnigma(config);
