@@ -6,12 +6,13 @@ import { appContextType, mashupConfigData, QdtConfigType, sheetData } from '../t
 type Props = {
   children: ReactNode;
   appConfigData: mashupConfigData;
+  sheetsList: sheetData[];
 };
 
 const appContextDefaultValues: appContextType = {
   sheets: [],
-  GetCapabilitiesPromise: () => {},
-  GetEnginePromise: () => {},
+  // GetCapabilitiesPromise: () => {},
+  // GetEnginePromise: () => {},
 };
 
 export const AppConfigContext = createContext<appContextType>(
@@ -22,59 +23,61 @@ export function useAppConfig() {
   return useContext(AppConfigContext);
 }
 
-export function AppConfigProvider({children, appConfigData}: Props) {
-  const [sheets, setSheets] = useState<sheetData[]>([]);
+export function AppConfigProvider({children, appConfigData, sheetsList}: Props) {
+  const [sheets, setSheets] = useState<sheetData[]>(sheetsList);
  
-  const identity = Math.random().toString(32);
+  // const identity = Math.random().toString(32);
 
-  const connectionConfig: QdtConfigType = {
-    host: appConfigData.server,
-    secure: true,
-    port: 443,
-    prefix: "",
-    appId: appConfigData.appId,
-    identity
-  }
+  // const connectionConfig: QdtConfigType = {
+  //   host: appConfigData.server,
+  //   secure: true,
+  //   port: 443,
+  //   prefix: "",
+  //   appId: appConfigData.appId,
+  //   identity,
+  //   // webIntegrationId: 'JqbUeBR8thgedYXpOJOsarV8n_mALCYG',
+  //   // token: 'afasdfasdfasdf'
+  // }
 
-  function GetCapabilitiesPromise() {
-    return qdtCapabilityApp(connectionConfig);
-  }
+  // function GetCapabilitiesPromise() {
+  //   return qdtCapabilityApp(connectionConfig);
+  // }
 
-  function GetEnginePromise() {
-    return qdtEnigma(connectionConfig);
-  }
+  // function GetEnginePromise() {
+  //   return qdtEnigma(connectionConfig);
+  // }
 
-  useEffect(() => {
-    async function init() {
+  // useEffect(() => {
+  //   async function init() {
 
-      const app = await qdtEnigma(connectionConfig);
+  //     const app = await qdtEnigma(connectionConfig);
 
-      const sheetsList: sheetData[] = [];
+  //     const sheetsList: sheetData[] = [];
 
-      for(const sheet of appConfigData.sheets) {
+  //     // for(const sheet of appConfigData.sheets) {
   
-        const obj = await app.getObject(sheet.sheetId);
-        const layout = await obj.getLayout();
+  //     //   const obj = await app.getObject(sheet.sheetId);
+  //     //   const layout = await obj.getLayout();
   
-        sheetsList.push({
-          id: String(sheet.sheetId),
-          title: sheet.title ? sheet.title : layout.qMeta.title,
-          cells: layout.cells,
-          columns: layout.columns,
-          rows: layout.rows,
-        })
-      }
+  //     //   sheetsList.push({
+  //     //     id: String(sheet.sheetId),
+  //     //     title: sheet.title ? sheet.title : layout.qMeta.title,
+  //     //     cells: layout.cells,
+  //     //     columns: layout.columns,
+  //     //     rows: layout.rows,
+  //     //   })
+  //     // }
 
-      setSheets(sheetsList);
-    }
+  //     // setSheets(sheetsList);
+  //   }
 
-    init();
-  }, [])
+  //   init();
+  // }, [])
 
   const value = {
     sheets: sheets,
-    GetCapabilitiesPromise,
-    GetEnginePromise
+    // GetCapabilitiesPromise,
+    // GetEnginePromise
   };
 
   return (

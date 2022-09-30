@@ -14,6 +14,16 @@ function Home() {
   return (
     <motion.div variants={container} initial="hidden" animate="show">
       {appName}
+
+      {/* <QdtComponent
+          component={QdtViz}
+          properties={{}}
+          options={{
+            id: 'DaXvbnY',
+            height: `30vh`,
+          }}
+          appIndex={2}
+        /> */}
       
       {/* <div className="h-screen">
         <motion.ul

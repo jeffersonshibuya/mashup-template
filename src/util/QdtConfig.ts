@@ -2,6 +2,8 @@ import { api } from "../services/api";
 import { mashupConfigData } from "../types";
 
 const identity = Math.random().toString(32);
+// const jwtEndpoint = 'https://dnikbxehetoshbd63t2hcwdjfm0ocsho.lambda-url.us-east-1.on.aws/'
+
 
 let QdtConfigData = {
   host: '',
@@ -9,7 +11,8 @@ let QdtConfigData = {
   port: 443,
   prefix: "",
   appId: '',
-  identity
+  // webIntegrationId: 'JqbUeBR8thgedYXpOJOsarV8n_mALCYG',
+  // token: 'asdf'
 }
 
 let configData: mashupConfigData = {} as mashupConfigData; 
@@ -35,11 +38,11 @@ async function QdtConfigConnection() {
   return configData;
 }
 
-function GetMashupConfig() {
+async function GetMashupConfig() {
   if(configData.server !== '' && configData.appId !== '') {
     return configData
   } else {
-    QdtConfigConnection();
+    await QdtConfigConnection();
   }
 }
 

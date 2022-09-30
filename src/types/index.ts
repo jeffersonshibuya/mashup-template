@@ -4,13 +4,16 @@ export type mashupConfigData = {
   server: string;
   name: string;
   appId: string;
+  isCloud?: boolean;
+  isAnonAccess?: boolean;
+  webIntegrationId?: string;
   sheets: sheetsResponseData[]
 }
 
 export type appContextType = {
   sheets: sheetData[];
-  GetCapabilitiesPromise: any,
-  GetEnginePromise: any,
+  // GetCapabilitiesPromise: any,
+  // GetEnginePromise: any,
 };
 
 export type sheetsResponseData = {
@@ -24,7 +27,9 @@ export type QdtConfigType = {
   port: number;
   prefix: string;
   appId: string;
-  identity: string;
+  identity?: string;
+  webIntegrationId?: string;
+  token?: string;
 }
 
 

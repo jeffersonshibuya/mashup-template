@@ -30,12 +30,7 @@ const Sheet: React.FC = () => {
 
   return (
       <motion.div key={sheetId} variants={container} initial="hidden" animate="show">
-        <div className="">
-          {/* <div className="">
-            <div className="container">
-              <strong className="text-3xl dark:text-white">{sheet?.title}</strong>
-            </div>
-          </div> */}
+        <div className="pb-4">
           <Content columns={sheet?.columns} rows={sheet?.rows}>
             {sheet?.cells?.map(cell => {
               return (

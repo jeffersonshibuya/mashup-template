@@ -5,7 +5,7 @@ import NotFound from './pages/NotFound';
 import './index.css'
 import Test from './pages/Test';
 import { AppConfigProvider } from './context/SheetContext';
-import { mashupConfigData } from './types';
+import { mashupConfigData, sheetData } from './types';
 import Navbar from './components/Navbar';
 import InformedHeader from './components/InformedHeader';
 import Sheet from './pages/Sheet';
@@ -16,6 +16,7 @@ import { QdtSelections } from 'qdt-components';
 
 type Props = {
   appConfigData: mashupConfigData;
+  sheetsList: sheetData[];
 }
 
 export function App() {
@@ -44,10 +45,10 @@ export function App() {
   );
 }
 
-export function WrappedApp({appConfigData}: Props) {
+export function WrappedApp({appConfigData, sheetsList}: Props) {
   return (
     <BrowserRouter>
-      <AppConfigProvider appConfigData={appConfigData}>
+      <AppConfigProvider appConfigData={appConfigData} sheetsList={sheetsList}>
         <ThemeContextWrapper>
           <App />
         </ThemeContextWrapper>

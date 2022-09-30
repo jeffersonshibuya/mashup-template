@@ -11,7 +11,9 @@
     "test": "vitest"
   },
   "dependencies": {
+    "@qlik/sdk": "^0.10.2",
     "axios": "^0.27.2",
+    "enigma.js": "^2.10.0",
     "eslint-config-airbnb-typescript": "^17.0.0",
     "framer-motion": "^7.3.5",
     "phosphor-react": "^1.4.1",
@@ -24,6 +26,7 @@
   "devDependencies": {
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
+    "@types/enigma.js": "^2.2.2",
     "@types/react": "^18.0.17",
     "@types/react-dom": "^18.0.6",
     "@types/styled-components": "^5.1.26",
