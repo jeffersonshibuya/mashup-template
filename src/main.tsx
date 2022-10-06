@@ -4,11 +4,11 @@ import schema from 'enigma.js/schemas/12.936.0.json';
 import { qdtEnigma } from 'qdt-components';
 import ReactDOM from 'react-dom/client';
 import { Auth, AuthType } from '@qlik/sdk';
-import { ArrowsClockwise } from 'phosphor-react';
 
 import { WrappedApp } from './App';
 import { mashupConfigData, sheetData, sheetsResponseData } from './types';
 import { GetMashupConfig } from './util/QdtConfig';
+import LoadingPage from './components/LoadingPage';
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
 
@@ -20,9 +20,9 @@ function loadPage(appConfigData: mashupConfigData, sheetsList: sheetData[]): voi
   );
 }
 
-const jwtEndpoint = 'https://dnikbxehetoshbd63t2hcwdjfm0ocsho.lambda-url.us-east-1.on.aws/'
+const defaultAnonUrl = 'https://dnikbxehetoshbd63t2hcwdjfm0ocsho.lambda-url.us-east-1.on.aws/'
 
-async function getJWTToken() {
+async function getJWTToken(jwtEndpoint: string) {
   return await fetch(jwtEndpoint, {
     mode: 'cors',
     method: 'GET',
@@ -83,7 +83,7 @@ async function sheetsListFormat(configApp: mashupConfigData) {
 
   const qDoc = await qdtEnigma({
     ...configApp,
-    host: configApp.server
+    host: configApp.server.serverUrl
   });
 
   const qOptionsSheet = {
@@ -122,63 +122,57 @@ async function sheetsListFormat(configApp: mashupConfigData) {
   return sheetsListFormatted;
 }
 
+
 (async function getApp() {
 
   root.render(
     <React.StrictMode>
-     <div className="text-2xl text-green-800 w-full h-screen flex justify-center items-center">
-        <span className='animate-spin mr-2'>
-          <ArrowsClockwise size={24}/>
-        </span>
-        Loading...
-      </div>
+     <LoadingPage />
     </React.StrictMode>
   )
 
-  // const isAnon = true;
   const sheetsList: sheetData[] = [];
 
   const configApp = await GetMashupConfig();
 
-  if(!configApp?.isCloud) {
+  if(!configApp?.server.isCloud) {
     if(configApp) {
       const sheetsListFormatted = await sheetsListFormat(configApp)
       sheetsList.push(...sheetsListFormatted)
     }
   } else {
-    if(configApp.isAnonAccess) {
-      const userLogged = await fetch(`https://${configApp.server}/api/v1/users/me`, {
+    if(configApp.server.isAnonAccess) {
+      const userLogged = await fetch(`https://${configApp.server.serverUrl}/api/v1/users/me`, {
         method: 'GET',
         mode: 'cors',
         credentials: 'include',
         headers: {
-          'qlik-web-integration-id': configApp.webIntegrationId!
+          'qlik-web-integration-id': configApp.server.webIntegrationId!
         },
       })
 
       if(userLogged.status === 401) {
         // Login
-        const response = await getJWTToken()
+        const response = await getJWTToken(configApp.server.anonUrl || defaultAnonUrl)
         const token = await response.json()
-        await fetch(`https://${configApp.server}/login/jwt-session?qlik-web-integration-id=${configApp.webIntegrationId}/`, {
+        await fetch(`https://${configApp.server.serverUrl}/login/jwt-session?qlik-web-integration-id=${configApp.server.webIntegrationId}/`, {
           method: 'POST',
           credentials: 'include',
           mode: 'cors',
           headers: {
             'authorization': `Bearer ${token}`,
-            'qlik-web-integration-id': configApp.webIntegrationId!
+            'qlik-web-integration-id': configApp.server.webIntegrationId!
           },
         })
 
         // refresh the page to the same url request
         window.location.href = window.location.href; 
       } else {
-        console.log('auth connection')
         const authInstance = new Auth({
-          webIntegrationId: configApp.webIntegrationId,
+          webIntegrationId: configApp.server.webIntegrationId,
           autoRedirect: false,
           authType: AuthType.WebIntegration,
-          host: configApp.server.replace(/^https?:\/\//, '').replace(/\/?/, ''),
+          host: configApp.server.serverUrl.replace(/^https?:\/\//, '').replace(/\/?/, ''),
         });
 
         const sheetsListFormatted = await sheetsListFormatCloud(authInstance, configApp)
@@ -187,10 +181,10 @@ async function sheetsListFormat(configApp: mashupConfigData) {
       
     } else {
       const authInstance = new Auth({
-        webIntegrationId: configApp.webIntegrationId,
+        webIntegrationId: configApp.server.webIntegrationId,
         autoRedirect: true,
         authType: AuthType.WebIntegration,
-        host: configApp.server.replace(/^https?:\/\//, '').replace(/\/?/, ''),
+        host: configApp.server.serverUrl.replace(/^https?:\/\//, '').replace(/\/?/, ''),
       });
 
       if (!authInstance.isAuthenticated()) {

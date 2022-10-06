@@ -21,7 +21,14 @@ async function QdtConfigConnection() {
   let url = window.location.toString();
   const appName = url.split('/')[3];
 
-  const configApp = await api.post<mashupConfigData>('', { name: appName}, {
+  if(!appName) {
+    window.location.href = 'https://ipc-global.com'
+  }
+
+  const configApp = await api.post<mashupConfigData>('app', { 
+    action: 'get',
+    name: appName
+  }, {
     headers: {
       "Content-Type": "application/json",
     },
@@ -29,7 +36,7 @@ async function QdtConfigConnection() {
 
   QdtConfigData = {
     ...QdtConfigData,
-    host: configApp.data.server,
+    host: configApp.data.server.serverUrl,
     appId: configApp.data.appId,
   } 
 
@@ -39,7 +46,7 @@ async function QdtConfigConnection() {
 }
 
 async function GetMashupConfig() {
-  if(configData.server !== '' && configData.appId !== '') {
+  if(configData.server.serverUrl !== '' && configData.appId !== '') {
     return configData
   } else {
     await QdtConfigConnection();

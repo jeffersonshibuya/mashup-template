@@ -1,7 +1,7 @@
 import { HouseLine, Info } from 'phosphor-react';
 import { useContext } from 'react';
 import { useParams } from 'react-router-dom';
-import logo from '../assets/logo_rbg.png';
+import logo from '../assets/logo_rgb.png';
 import logo_white from '../assets/logo_white.png';
 import ThemeContext from '../context/ThemeContext';
 

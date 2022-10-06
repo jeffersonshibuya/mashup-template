@@ -21,12 +21,12 @@ let config = {
   // .catch(error => console.log('---- Errror', error))
 };
 
-if(configData.isCloud) {
-  if(configData.isAnonAccess) {
+if(configData.server.isCloud) {
+  if(configData.server.isAnonAccess) {
     config = {
       ...QdtConfigData,
-      webIntegrationId: String(configData.webIntegrationId),
-      token: String(fetch(jwtEndpoint, {
+      webIntegrationId: String(configData.server.webIntegrationId),
+      token: String(fetch(configData.server.anonUrl, {
         mode: 'cors',
         method: 'GET',
       }).then(response => response.json())
@@ -36,14 +36,11 @@ if(configData.isCloud) {
   } else {
     config = {
       ...QdtConfigData,
-      webIntegrationId: String(configData.webIntegrationId),
+      webIntegrationId: String(configData.server.webIntegrationId),
       token: 'mytoken-invalid token'
     };
   }
 }
-
-
-
 
 const capabilityApiAppPromise = qdtCapabilityApp(config);
 const engineApiAppPromise = qdtEnigma(config);

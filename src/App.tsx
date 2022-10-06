@@ -1,4 +1,4 @@
-import { BrowserRouter, HashRouter, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, HashRouter, Navigate, Route, Routes } from 'react-router-dom';
 import Home from './pages/Home';
 import NotFound from './pages/NotFound';
 
@@ -19,13 +19,21 @@ type Props = {
   sheetsList: sheetData[];
 }
 
-export function App() {
+interface AppProps {
+  defaultSheet: string;
+  appName: string;
+}
+
+export function App({defaultSheet, appName}: AppProps) {
+
+  console.log(defaultSheet)
+
   return (
     <>
       <InformedHeader />
       <Navbar />
       <div className='dark:bg-gradient-to-b dark:from-gray-700 dark:to-gray-900'>
-        <div className="container pt-3">
+        <div className="container lg:pt-3">
           <QdtComponent
             component={QdtSelections}
             properties={{
@@ -33,7 +41,7 @@ export function App() {
             }}
           />
           <Routes>
-            <Route path={`/:appName`} element={<Home />} />
+            <Route path={`/:appName`} element={<Navigate to={`/${appName}/${defaultSheet}`} replace />} />
             <Route path="/:appName/test" element={<Test />} />
             <Route path="/:appName/:sheetId" element={<Sheet />} />
             <Route path="*" element={<NotFound />} />
@@ -50,7 +58,7 @@ export function WrappedApp({appConfigData, sheetsList}: Props) {
     <BrowserRouter>
       <AppConfigProvider appConfigData={appConfigData} sheetsList={sheetsList}>
         <ThemeContextWrapper>
-          <App />
+          <App defaultSheet={sheetsList['0'].id} appName={appConfigData.name}/>
         </ThemeContextWrapper>
       </AppConfigProvider>
     </BrowserRouter>

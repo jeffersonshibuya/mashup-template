@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { Buildings, FacebookLogo, LinkedinLogo, MapPin, Phone, TwitterLogo, YoutubeLogo } from 'phosphor-react'
-import logo from '../assets/logo_rbg.png';
+import logo from '../assets/logo_rgb.png';
 import ipcIcon from '../assets/ipcglobe.png'
 import logo_white from '../assets/logo_white.png'
 import ThemeContext from '../context/ThemeContext';

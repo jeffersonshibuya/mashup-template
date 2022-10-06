@@ -1,12 +1,16 @@
 // import { IconType } from 'react-icons/lib/esm';
 
 export type mashupConfigData = {
-  server: string;
-  name: string;
   appId: string;
-  isCloud?: boolean;
-  isAnonAccess?: boolean;
-  webIntegrationId?: string;
+  name: string;
+  server: {
+    anonUrl: string;
+    isCloud: boolean,
+    webIntegrationId: string;
+    name: string;
+    isAnonAccess: boolean,
+    serverUrl: string;
+  },
   sheets: sheetsResponseData[]
 }
 
