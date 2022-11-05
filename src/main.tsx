@@ -13,6 +13,7 @@ import LoadingPage from './components/LoadingPage';
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
 
 function loadPage(appConfigData: mashupConfigData, sheetsList: sheetData[]): void {
+  sheetsList = sheetsList.sort((a, b) => (a.sortOrder || 1) - (b.sortOrder || 0))
   root.render(
     <React.StrictMode>
       <WrappedApp appConfigData={appConfigData} sheetsList={sheetsList}/>
@@ -70,6 +71,7 @@ async function sheetsListFormatCloud(authInstance: Auth, configApp: any) {
       cells: layout.cells,
       columns: layout.columns,
       rows: layout.rows,
+      sortOrder: sheet.sortOrder
     })
   }
 
@@ -116,6 +118,7 @@ async function sheetsListFormat(configApp: mashupConfigData) {
       cells: layout.cells,
       columns: layout.columns,
       rows: layout.rows,
+      sortOrder: sheet.sortOrder
     })
   }
 
@@ -135,6 +138,7 @@ async function sheetsListFormat(configApp: mashupConfigData) {
 
   const configApp = await GetMashupConfig();
 
+  console.log(configApp)
   if(!configApp?.server.isCloud) {
     if(configApp) {
       const sheetsListFormatted = await sheetsListFormat(configApp)
@@ -155,12 +159,13 @@ async function sheetsListFormat(configApp: mashupConfigData) {
         // Login
         const response = await getJWTToken(configApp.server.anonUrl || defaultAnonUrl)
         const token = await response.json()
-        await fetch(`https://${configApp.server.serverUrl}/login/jwt-session?qlik-web-integration-id=${configApp.server.webIntegrationId}/`, {
+        const res = await fetch(`https://${configApp.server.serverUrl}/login/jwt-session?qlik-web-integration-id=${configApp.server.webIntegrationId}/`, {
           method: 'POST',
           credentials: 'include',
           mode: 'cors',
           headers: {
-            'authorization': `Bearer ${token}`,
+            "content-type": "application/json",
+            Authorization: `Bearer ${token}`,
             'qlik-web-integration-id': configApp.server.webIntegrationId!
           },
         })

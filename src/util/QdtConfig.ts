@@ -2,8 +2,6 @@ import { api } from "../services/api";
 import { mashupConfigData } from "../types";
 
 const identity = Math.random().toString(32);
-// const jwtEndpoint = 'https://dnikbxehetoshbd63t2hcwdjfm0ocsho.lambda-url.us-east-1.on.aws/'
-
 
 let QdtConfigData = {
   host: '',

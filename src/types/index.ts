@@ -23,6 +23,7 @@ export type appContextType = {
 export type sheetsResponseData = {
   sheetId: string;
   title: string;
+  sortOrder: number;
 }
 
 export type QdtConfigType = {
@@ -43,6 +44,7 @@ export type sheetData = {
   cells: Array<Cells>;
   columns: number;
   rows: number;
+  sortOrder: number;
   // menuIcon?: IconType | undefined;
   // iconColor?: string;
   // bgImageUrl?: string;

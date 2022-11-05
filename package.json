@@ -6,7 +6,8 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc && vite build",
+    "build": "tsc && vite build && yarn s3",
+    "s3": "aws s3 cp .\\dist\\ s3://mashup-bootstrap/ --recursive --profile training",
     "preview": "vite preview",
     "test": "vitest"
   },
