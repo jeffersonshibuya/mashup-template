@@ -1,4 +1,4 @@
-import { House, HouseLine, List, User } from "phosphor-react";
+import { House, HouseLine, List, Table, User } from "phosphor-react";
 import { useState } from "react";
 import { NavLink, useParams } from "react-router-dom";
 import { useAppConfig } from "../context/SheetContext";
@@ -35,7 +35,7 @@ function Navbar() {
                 key={sheet.id}
               >
                 <span className="flex align-center">
-                  <User size={16} className="mr-1"/>
+                  <Table size={16} className="mr-1"/>
                   {sheet.title}
                 </span>
               </NavLink>
