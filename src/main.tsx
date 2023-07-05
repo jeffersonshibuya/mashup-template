@@ -13,7 +13,8 @@ import LoadingPage from './components/LoadingPage';
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
 
 function loadPage(appConfigData: mashupConfigData, sheetsList: sheetData[]): void {
-  sheetsList = sheetsList.sort((a, b) => (a.sortOrder || 1) - (b.sortOrder || 0))
+  sheetsList = sheetsList.sort((a, b) => (a.sortOrder || 1) > (b.sortOrder || 0) ? 1 : -1)
+  console.log(sheetsList.map(s => s.sortOrder))
   root.render(
     <React.StrictMode>
       <WrappedApp appConfigData={appConfigData} sheetsList={sheetsList}/>

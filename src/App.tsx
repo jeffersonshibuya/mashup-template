@@ -31,9 +31,9 @@ export function App({defaultSheet, appName}: AppProps) {
   return (
     <>
       <InformedHeader />
-      <Navbar />
       <div className='dark:bg-gradient-to-b dark:from-gray-700 dark:to-gray-900'>
         <div className="container lg:pt-3">
+          <Navbar />
           <QdtComponent
             component={QdtSelections}
             properties={{
